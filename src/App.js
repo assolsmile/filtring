@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {connect} from 'react-redux';
+import {bindActionCreators} from "redux";
+import * as actions from "./components/actions";
+import React, {Component} from 'react';
+import Listing from "./components/listing/Listing";
+import './App.scss';
+import Filter from "./components/filter/Filter";
 
 class App extends Component {
+  componentDidMount() {
+    const {loadAll} = this.props;
+    loadAll();
+  }
+
   render() {
+    const {geoName, listings} = this.props;
+    const listingCards = listings.map((v, i) => <Listing key={i} {...v}/>);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header className="header">
+          <h1>{geoName}</h1>
+          <Filter {...this.props} />
         </header>
+        <div className="listingCards">
+          {listingCards}
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  geoName: state.main.geoName,
+  listings: state.main.listings.display,
+  features: state.main.features,
+  types: state.main.types,
+  filters: state.main.filters
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

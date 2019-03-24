@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
 
@@ -42,40 +42,42 @@ p, h6 {
 
 .header {
   margin: 4rem;
-}
-.header h1 {
-  text-align: center;
-  color: #4c4c4c;
-  font-size: 4rem;
+
+  h1{
+    text-align: center;
+    color: #4c4c4c;
+    font-size: 4rem;
+  }
 }
 
 .form-check-input {
   font-size: 2rem;
   position: absolute;
-  margin-top: 0.3rem;
-  margin-left: -2.1rem !important;
+  margin-top: .3rem;
+  margin-left: -2.1rem!important;
 }
 
-.form-group {
+.form-group{
   width: 29.5rem;
+
 }
 
-.title {
+.title{
   font-size: 2rem;
 }
 
-.btn-filter {
+.btn-filter{
   margin-top: 1rem;
   width: 10rem;
   background-color: #ff851d !important;
   color: #fff !important;
   border: none !important;
-  border-radius: 4px !important;
-  font-size: 1.3rem !important;
-  font-weight: 600 !important;
+  border-radius:4px !important;
+  font-size: 1.3rem!important;
+  font-weight: 600!important;
 }
 
-.checkbox-features {
+.checkbox-features{
   font-size: 1.3rem;
 }
 
@@ -83,21 +85,21 @@ p, h6 {
   margin: 4rem;
   font-size: 1.4rem;
   color: #333;
-}
-.listingCards h4 {
-  font-size: 2rem;
-  color: black;
-}
-.listingCards span {
-  color: #747474;
-  margin-right: 1rem;
+
+  h4 {
+    font-size: 2rem;
+    color: black;
+  }
+  span {
+    color: #747474;
+    margin-right: 1rem;
+  }
 }
 
 .media {
   margin-bottom: 2rem;
-}
-.media a {
-  margin-right: 2rem;
+  a{
+    margin-right: 2rem;
+  }
 }
 
-/*# sourceMappingURL=App.css.map */
