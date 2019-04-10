@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import Listing from "./components/listing/Listing";
 import './App.scss';
 import Filter from "./components/filter/Filter";
+import ChartBar from './components/chart/Chart'
 
 class App extends Component {
   componentDidMount() {
@@ -23,6 +24,7 @@ class App extends Component {
         </header>
         <div className="listingCards">
           {listingCards}
+          <ChartBar {...this.props}/>
         </div>
       </div>
     );
@@ -34,7 +36,8 @@ const mapStateToProps = state => ({
   listings: state.main.listings.display,
   features: state.main.features,
   types: state.main.types,
-  filters: state.main.filters
+  filters: state.main.filters,
+  chart: state.main.chart
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

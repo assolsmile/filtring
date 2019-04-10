@@ -12,8 +12,26 @@ const initialState = {
   filters: {
     features: [],
     type: ""
-  }
+  },
+  chart: {
+    labels: [],
+    data: []
+  },
 };
+
+function extractChartData(listings) {
+  const none = "none";
+  const zips = listings
+    .map(r => {
+      const zipRegx = /([\d]+) Berlin/g;
+      let res = zipRegx.exec(r.addressToDisplay);
+      if (res.length > 1) return res[1];
+      else return none;
+    })
+    .filter(zip => zip !== none)
+    .map(r => r.slice(0, 2));
+  return _.countBy(zips);
+}
 
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -24,15 +42,19 @@ const reducer = (state = [], action) => {
         ["productType"],
         ["asc"]
       );
-      const features = _.uniq(result.map(r => r.features).flat());
-      const types = _.uniq(result.map(r => r.commercializationType));
-
+      const features = [...new Set(result.map(r => r.features).flat())];
+      const types = [...new Set(result.map(r => r.commercializationType))];
+      const chartData = extractChartData(result);
       return {
         ...state,
         listings: {all, display: all},
         geoName: action.listings.geoName,
         features,
-        types
+        types,
+        chart: {
+          labels: Object.keys(chartData),
+          data: Object.values(chartData)
+        }
       };
     }
     case actionTypes.FILTER_RESULT: {
@@ -50,6 +72,8 @@ const reducer = (state = [], action) => {
           );
       }
 
+      const chartData = extractChartData(display);
+
       return {
         ...state,
         filters: {
@@ -59,6 +83,10 @@ const reducer = (state = [], action) => {
         listings: {
           all,
           display
+        },
+        chart: {
+          labels: Object.keys(chartData),
+          data: Object.values(chartData)
         }
       };
     }
